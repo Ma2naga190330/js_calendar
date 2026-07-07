@@ -92,7 +92,7 @@ async function scroller(){
         const postElm = document.createElement('div');
         postElm.className='post';
         let [curYear,curMon] = numToMonth();
-        postElm.innerHTML=`<h3>${now.getFullYear()+curYear}年${now.getMonth()+curMon+1}月</h3><table border="1">${str.join("")}</table>`;
+        postElm.innerHTML=`<h3>${now.getFullYear()+curYear}年${now.getMonth()+curMon+1}月</h3><table border="1" class="cale">${str.join("")}</table>`;
         timeline.appendChild(postElm);
         if (currentIndex === 24){
             isLoading = false;
@@ -118,6 +118,7 @@ function checkScroll(){
     }
 }
 
+//Jsonデータの読み込み
 async function readJson(){
     const dataResponse = await fetch('/data');
     return await dataResponse.json();

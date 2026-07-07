@@ -11,10 +11,15 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'text/html' });
             res.end(data);
         });
-    }
-    else if(req.url==='/input'&&req.method==='GET'){
+    }else if(req.url==='/input'&&req.method==='GET'){
         // input_plan.htmlを入力
         fs.readFile('./input_plan.html',(err,data)=>{
+            res.writeHead(200,{'Content-Type':'text/html'});
+            res.end(data);
+        })
+    }else if(req.url==='/delete'&&req.method==='GET'){
+        // del_plan.htmlを入力
+        fs.readFile('./del_plan.html',(err,data)=>{
             res.writeHead(200,{'Content-Type':'text/html'});
             res.end(data);
         })
@@ -34,6 +39,12 @@ const server = http.createServer((req, res) => {
     }else if(req.url === '/add_plan.js' && req.method==='GET'){
         // add_plan.jsを読み込む
         fs.readFile(path.join(__dirname,'add_plan.js'),(err,data)=>{
+            res.writeHead(200,{'Content-Type':'application/javascript'});
+            res.end(data);
+        })
+    }else if(req.url === '/del_plan.js' && req.method==='GET'){
+        // del_plan.jsを読み込む
+        fs.readFile(path.join(__dirname,'del_plan.js'),(err,data)=>{
             res.writeHead(200,{'Content-Type':'application/javascript'});
             res.end(data);
         })
@@ -93,3 +104,5 @@ server.listen(3000, () => {
 // https://code.aetheria.jp/13886/
 // fetchの説明
 // https://qiita.com/nanasi-1/items/22f6acb6e011b1aadede
+// json crud
+// https://qiita.com/1mada/items/9a48f7053a6016b5fd5a

@@ -12,56 +12,61 @@ body {
     background-color: #f6f5f4;
 }
 
+table, th, td {
+    border: 1px solid black; /* 枠線の太さ、種類、色を指定 */
+    border-collapse: collapse; /* 二重線を一本化 */
+}
+
 /* #side {
     background-color: #ff838b;
     width:10%;
     clear: both;
     overflow: hidden;
     margin: 16px auto;
-}*/
-
-
-/* リストの行頭を削除 */
-/* #side ul{ 
-    list-style: none;
-    margin: 0;
-    padding: 0;
-} */
-
-/* .content {
-    background-color: #b3d874;
-    width: 70%;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    /*サイドバーとメインコンテンツの間に隙間をあけた*/
-/* } */
-
-/* article {
-    display: flex;
-    /*サイドバーとメインコンテンツを横並びにする指定をした*/
-/* } */
-
-
-/* sidebar */
-.cp_navi01 {
-    width: 250px;
-    background-color: #f0f0f0;
-    padding: 1em;
-}
-
-.cp_navi01 ul {
-    width: 200px;
-    /*メニューの幅*/
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    background-color: #eeeeee;
-}
-
-.cp_navi01 li a {
-    display: block;
-    padding: 8px 16px;
+    }*/
+    
+    
+    /* リストの行頭を削除 */
+    /* #side ul{ 
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        } */
+        
+        /* .content {
+            background-color: #b3d874;
+            width: 70%;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            /*サイドバーとメインコンテンツの間に隙間をあけた*/
+            /* } */
+            
+            /* article {
+                display: flex;
+                /*サイドバーとメインコンテンツを横並びにする指定をした*/
+                /* } */
+                
+                
+                /* sidebar */
+                .cp_navi01 {
+                    width: 250px;
+                    background-color: #f0f0f0;
+                    padding: 1em;
+                }
+                
+                .cp_navi01 ul {
+                    width: 200px;
+                    /*メニューの幅*/
+                    margin: 0;
+                    padding: 0;
+                    list-style-type: none;
+                    background-color: #eeeeee;
+                }
+                
+                .cp_navi01 li a {
+                    display: block;
+                    padding: 8px 16px;
     text-decoration: none;
     color: #000000;
     transition: all .3s;
@@ -94,13 +99,13 @@ body {
     padding: 1em;
 }
 
-table{
+.cale{
     width: 500px;
     height: 500px;
     background-color: white;
 }
 
-table tr td{
+.cale tr td{
     text-align: center;
     width: 100px;
 }
@@ -110,4 +115,11 @@ table tr td{
     padding: 5px;
     margin: 0;
     margin-top: 10px;
+}
+
+#planlist{
+    background-color: white;
+}
+.table_datetime{
+    width: 200px;
 }
