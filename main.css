@@ -1,0 +1,113 @@
+/* #>id .>class */
+h1 {
+    color: red;
+}
+
+#month {
+    
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #f6f5f4;
+}
+
+/* #side {
+    background-color: #ff838b;
+    width:10%;
+    clear: both;
+    overflow: hidden;
+    margin: 16px auto;
+}*/
+
+
+/* リストの行頭を削除 */
+/* #side ul{ 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+} */
+
+/* .content {
+    background-color: #b3d874;
+    width: 70%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    /*サイドバーとメインコンテンツの間に隙間をあけた*/
+/* } */
+
+/* article {
+    display: flex;
+    /*サイドバーとメインコンテンツを横並びにする指定をした*/
+/* } */
+
+
+/* sidebar */
+.cp_navi01 {
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 1em;
+}
+
+.cp_navi01 ul {
+    width: 200px;
+    /*メニューの幅*/
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: #eeeeee;
+}
+
+.cp_navi01 li a {
+    display: block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #000000;
+    transition: all .3s;
+}
+
+.cp_navi01 li {
+    text-align: center;
+}
+
+.cp_navi01 li:last-child {
+    border-bottom: none;
+}
+
+.cp_navi01 li a.active {
+    color: #ffffff;
+    background-color: #da3c41;
+}
+
+.cp_navi01 li a:hover:not(.active) {
+    color: #ffffff;
+    background-color: #1b2538;
+}
+
+.container {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    padding: 1em;
+}
+
+table{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+}
+
+table tr td{
+    text-align: center;
+    width: 100px;
+}
+
+#planView p{
+    background-color: white;
+    padding: 5px;
+    margin: 0;
+    margin-top: 10px;
+}
