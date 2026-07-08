@@ -21,6 +21,8 @@ function addPlan(){
             })
         })
         alert("追加成功");
+        // 強制リロード
+        window.location.reload(true);
     });
 }
 

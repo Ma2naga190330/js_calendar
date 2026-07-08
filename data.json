@@ -10,29 +10,14 @@
     "plan": "MTG2"
   },
   {
-    "date": "2026-06-25",
-    "time": "00:00",
-    "plan": "Programing"
-  },
-  {
     "date": "2026-06-26",
     "time": "00:00",
     "plan": "test"
   },
   {
-    "date": "2026-07-15",
-    "time": "00:00",
-    "plan": "a"
-  },
-  {
     "date": "2026-07-16",
     "time": "00:00",
     "plan": "b"
-  },
-  {
-    "date": "2026-07-22",
-    "time": "00:00",
-    "plan": "a"
   },
   {
     "date": "2026-07-14",
@@ -50,23 +35,13 @@
     "plan": "i"
   },
   {
-    "date": "2038-01-07",
-    "time": "00:00",
-    "plan": "test"
-  },
-  {
     "date": "2026-07-13",
     "time": "00:00",
     "plan": "a"
   },
   {
-    "date": "2026-07-21",
-    "time": "19:55",
-    "plan": "add"
-  },
-  {
-    "date": "2026-07-15",
-    "time": "23:02",
-    "plan": "asjdfkjaljfkdljalkijdioljfalkjdfkljalksdjfklajfjaklsdjfklasj;ldfjkla;lkjfkldsajlkfasdjl;k"
+    "date": "2026-07-09",
+    "time": "10:00",
+    "plan": "testadd"
   }
 ]

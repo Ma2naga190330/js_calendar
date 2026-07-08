@@ -70,12 +70,43 @@ const server = http.createServer((req, res) => {
                 );
                 // 配列へ追加
                 currentData.push(newData);
+                console.log("newData>"+newData);
                 // ファイルへ保存
                 fs.writeFileSync(
                     filePath,
                     JSON.stringify(currentData, null, 2),
                     'utf-8'
                 );
+            } catch (err) {
+                console.error(err);
+            }
+        });
+    }else if (req.url === '/del'&&req.method==='POST'){
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk;
+            console.log("chunk>"+chunk);
+        });
+        req.on('end', () => {
+            try {
+                // 受信したJSONをオブジェクト化
+                let newData = JSON.parse(body);
+                const filePath = path.join(__dirname, 'data.json');
+                // 既存データを取得
+                const currentData = JSON.parse(
+                    fs.readFileSync(filePath, 'utf-8')
+                );
+                // 配列へ追加
+                newData = currentData.filter(function(item, index){
+                    if (item.date != newData.date) return true;
+                });
+                // ファイルへ保存
+                fs.writeFileSync(
+                    filePath,
+                    JSON.stringify(newData, null, 2),
+                    'utf-8'
+                );
+                window.location.reload();
             } catch (err) {
                 console.error(err);
             }
@@ -106,3 +137,5 @@ server.listen(3000, () => {
 // https://qiita.com/nanasi-1/items/22f6acb6e011b1aadede
 // json crud
 // https://qiita.com/1mada/items/9a48f7053a6016b5fd5a
+// 強制リロード
+// https://www.sejuku.net/blog/25316
