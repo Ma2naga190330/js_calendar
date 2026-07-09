@@ -37,9 +37,9 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         console.log("data.json>Success");
         res.end(json);
-    }else if(req.url === '/front.js' && req.method==='GET'){
+    }else if(req.url === '/index.js' && req.method==='GET'){
         // front.jsを読み込む
-        fs.readFile(path.join(__dirname,'front.js'),(err,data)=>{
+        fs.readFile(path.join(__dirname,'index.js'),(err,data)=>{
             res.writeHead(200,{'Content-Type':'application/javascript'});
             res.end(data);
         })

@@ -27,7 +27,7 @@ async function appendEvent(){
     console.log(datas);
     const ids = [];
     let id="";
-    str.push(`<tr><th>datetime</th><th>comment</th></tr>`)
+    str.push(`<tr><th>date</th><th>time</th><th>plan</th></tr>`)
     for (const data of datas){
         id = "plan"+data.date+"-"+data.time;
         ids.push(id);
