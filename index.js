@@ -74,7 +74,7 @@ function numToMonth(){
 
 // スクロールで使用するグローバル変数
 let isLoading = false;
-let currentIndex = 0;
+let currentIndex = -1;
 const now = new Date();
 // スクロール
 async function scroller(){
@@ -113,7 +113,7 @@ function checkScroll(){
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const windowHeight = document.documentElement.clientHeight;
     // 画面下から100px以内だと次のデータをロード
-    if (scrollHeight-scrollTop-windowHeight <100){
+    if (scrollHeight-scrollTop-windowHeight <900){
         scroller();
     }
 }
@@ -180,9 +180,11 @@ window.addEventListener('scroll',()=>{
     checkScroll();
 });
 
-dispCale(now);
+// dispCale(now);
 checkScroll();
 appendEvent();
+
+
 // 参考
 // >>Dateの使い方
 // https://iifx.dev/ja/articles/662145/%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8F%E3%81%A8%E4%BE%BF%E5%88%A9-javascript%E3%81%A7%E3%81%AE%E6%9C%88%E6%9C%AB%E6%97%A5%E8%A8%88%E7%AE%97%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF%E3%81%A8%E3%82%88%E3%81%8F%E3%81%82%E3%82%8B%E8%90%BD%E3%81%A8%E3%81%97%E7%A9%B4
