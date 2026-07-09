@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 // サーバーの作成
 const server = http.createServer((req, res) => {
+    console.log(req.method, req.url);
     if (req.url === '/' && req.method === 'GET') {
         // get処理
         // index.htmlを読み込む
@@ -20,6 +21,12 @@ const server = http.createServer((req, res) => {
     }else if(req.url==='/delete'&&req.method==='GET'){
         // del_plan.htmlを入力
         fs.readFile('./del_plan.html',(err,data)=>{
+            res.writeHead(200,{'Content-Type':'text/html'});
+            res.end(data);
+        })
+    }else if(req.url==='/update'&&req.method==='GET'){
+        // update_plan.htmlを入力
+        fs.readFile('./update_plan.html',(err,data)=>{
             res.writeHead(200,{'Content-Type':'text/html'});
             res.end(data);
         })
@@ -48,6 +55,12 @@ const server = http.createServer((req, res) => {
             res.writeHead(200,{'Content-Type':'application/javascript'});
             res.end(data);
         })
+    }else if(req.url === '/update_plan.js' && req.method==='GET'){
+        // del_plan.jsを読み込む
+        fs.readFile(path.join(__dirname,'update_plan.js'),(err,data)=>{
+            res.writeHead(200,{'Content-Type':'application/javascript'});
+            res.end(data);
+        })
     }else if (req.url === '/css' && req.method === 'GET') {
         // main.cssを取得
         fs.readFile(path.join(__dirname,'main.css'),(err,data)=>{
@@ -70,7 +83,6 @@ const server = http.createServer((req, res) => {
                 );
                 // 配列へ追加
                 currentData.push(newData);
-                console.log("newData>"+newData);
                 // ファイルへ保存
                 fs.writeFileSync(
                     filePath,
@@ -85,7 +97,6 @@ const server = http.createServer((req, res) => {
         let body = '';
         req.on('data', chunk => {
             body += chunk;
-            console.log("chunk>"+chunk);
         });
         req.on('end', () => {
             try {
@@ -109,6 +120,33 @@ const server = http.createServer((req, res) => {
                 window.location.reload();
             } catch (err) {
                 console.error(err);
+            }
+        });
+    }else if (req.url === '/upd' && req.method === 'POST') {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk;
+        });
+        req.on('end', () => {
+            try {
+                const newData = JSON.parse(body);
+                const filePath = path.join(__dirname, 'data.json');
+                fs.writeFileSync(
+                    filePath,
+                    JSON.stringify(newData, null, 2),
+                    'utf-8'
+                );
+                console.log('保存成功');
+                res.writeHead(200, {
+                    'Content-Type': 'application/json'
+                });
+                res.end(JSON.stringify({
+                    success: true
+                }));
+            } catch (err) {
+                console.error(err);
+                res.writeHead(500);
+                res.end('error');
             }
         });
     }else {
