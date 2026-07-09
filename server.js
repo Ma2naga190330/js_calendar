@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
         })
     }else if(req.url === '/add_plan.js' && req.method==='GET'){
         // add_plan.jsを読み込む
-        fs.readFile(path.join(__dirname,'add_plan.js'),(err,data)=>{
+        fs.readFile(path.join(__dirname,'input_plan.js'),(err,data)=>{
             res.writeHead(200,{'Content-Type':'application/javascript'});
             res.end(data);
         })
