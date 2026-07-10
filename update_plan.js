@@ -34,7 +34,7 @@ async function appendEvent(){
         str.push(`
             <form>
                 <tr class="">
-                    <td><input type="date" value="${data.date}" class="${id}"></td>
+                    <td><input type="date" value="${data.date}" class="${id}" readonly></td>
                     <td><input type="time" value="${data.time}" class="${id}"></td>
                     <td><input type="text" value="${data.plan}" class="${id}"></td>
                 </tr>

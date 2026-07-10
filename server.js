@@ -126,10 +126,12 @@ const server = http.createServer((req, res) => {
         let body = '';
         req.on('data', chunk => {
             body += chunk;
+            console.log(chunk);
         });
         req.on('end', () => {
             try {
                 const newData = JSON.parse(body);
+                console.log(newData);
                 const filePath = path.join(__dirname, 'data.json');
                 fs.writeFileSync(
                     filePath,
