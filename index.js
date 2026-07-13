@@ -49,20 +49,20 @@ function cale(now){
     }
     return str;
 }
-function dispCale(now){
-    // 日付一覧を取得
-    const str = cale(now);
-    // index.htmlの要素を取得
-    const monElm = document.getElementById('month');
-    const Elm = document.querySelector('.cale');
-    // カレンダー(日付一覧)を代入
-    Elm.innerHTML=str.join("");
-    // カレンダーの見出しの年月を代入
-    monElm.innerHTML = (now.getFullYear())+"年"+(now.getMonth()+1).toString()+"月";
-    // 現在の日付の文字を赤にする
+// function dispCale(now){
+//     // 日付一覧を取得
+//     const str = cale(now);
+//     // index.htmlの要素を取得
+//     const monElm = document.getElementById('month');
+//     const Elm = document.querySelector('.cale');
+//     // カレンダー(日付一覧)を代入
+//     Elm.innerHTML=str.join("");
+//     // カレンダーの見出しの年月を代入
+//     monElm.innerHTML = (now.getFullYear())+"年"+(now.getMonth()+1).toString()+"月";
+//     // 現在の日付の文字を赤にする
     
-    const nowDate = document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
-}
+//     const nowDate = document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
+// }
 function numToMonth(){
     if (currentIndex === 0){
         return [0,0];
@@ -71,6 +71,8 @@ function numToMonth(){
         return [Math.floor((now.getMonth()+currentIndex)/12),(now.getMonth()+currentIndex)%12-now.getMonth()];
     }
 }
+
+
 
 // スクロールで使用するグローバル変数
 let isLoading = false;
@@ -115,6 +117,7 @@ function checkScroll(){
     // 画面下から100px以内だと次のデータをロード
     if (scrollHeight-scrollTop-windowHeight <900){
         scroller();
+        appendEvent();
     }
 }
 
@@ -183,6 +186,7 @@ window.addEventListener('scroll',()=>{
 // dispCale(now);
 checkScroll();
 appendEvent();
+document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
 
 
 // 参考

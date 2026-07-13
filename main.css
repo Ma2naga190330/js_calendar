@@ -15,11 +15,33 @@ table, th, td {
 }
 
 /*  サイドバー */
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
 .cp_navi01 {
     width: 250px;
-    background-color: #f0f0f0;
-    padding: 1em;
+    top: 20px;
+    height: fit-content;
+    background-color:#f6f5f4;
 }
+
+.main_navi{
+    position: sticky;
+}
+
+.content {
+    flex: 1;
+}
+/* 
+.cp_navi01 {
+    width: 250px;
+    padding: 1em;
+    position: sticky;
+    top: 20px; 
+} */
 
 .cp_navi01 ul {
     width: 200px;
@@ -57,14 +79,14 @@ table, th, td {
 }
 
 /*  カレンダー */
-.container {
+/* .container {
     display: flex;
-}
+} */
 
-.content {
+/* .content {
     flex: 1;
     padding: 1em;
-}
+} */
 
 .cale{
     width: 600px;
@@ -82,6 +104,7 @@ table, th, td {
     padding: 5px;
     margin: 0;
     margin-top: 10px;
+    width: 250px;
 }
 
 #planlist{
