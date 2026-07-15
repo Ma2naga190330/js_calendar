@@ -2,6 +2,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+
 // サーバーの作成
 const server = http.createServer((req, res) => {
     console.log(req.method, req.url);
@@ -68,8 +69,10 @@ const server = http.createServer((req, res) => {
             res.end(data)
         })
     }else if (req.url === '/add'&&req.method==='POST'){
+        // JSONにデータを追加する処理
         let body = '';
         req.on('data', chunk => {
+            // 送られてきたデータをbodyに格納
             body += chunk;
         });
         req.on('end', () => {
@@ -94,8 +97,10 @@ const server = http.createServer((req, res) => {
             }
         });
     }else if (req.url === '/del'&&req.method==='POST'){
+        // Jsonのデータ削除
         let body = '';
         req.on('data', chunk => {
+            // 送られてきたデータをbodyに格納
             body += chunk;
         });
         req.on('end', () => {
@@ -117,22 +122,27 @@ const server = http.createServer((req, res) => {
                     JSON.stringify(newData, null, 2),
                     'utf-8'
                 );
+                // リロードさせる
                 window.location.reload();
             } catch (err) {
                 console.error(err);
             }
         });
     }else if (req.url === '/upd' && req.method === 'POST') {
+        // JSONのデータを更新させる
         let body = '';
         req.on('data', chunk => {
+            // 送られてきたデータをbodyに格納
             body += chunk;
             console.log(chunk);
         });
         req.on('end', () => {
             try {
+                // 受信してきたデータをJSONに直す
                 const newData = JSON.parse(body);
                 console.log(newData);
                 const filePath = path.join(__dirname, 'data.json');
+                // ファイルへ保存
                 fs.writeFileSync(
                     filePath,
                     JSON.stringify(newData, null, 2),
@@ -146,6 +156,7 @@ const server = http.createServer((req, res) => {
                     success: true
                 }));
             } catch (err) {
+                // 500エラー対策
                 console.error(err);
                 res.writeHead(500);
                 res.end('error');
