@@ -4,10 +4,13 @@ async function readJson(){
     return await dataResponse.json();
 }
 
-// tableに追加
-async function appendEvent(){
+// 削除一覧をテーブルに追加
+async function delPlanList(){
+    // 削除一覧を登録する定数の定義
     const str = [];
+    // データを取得
     const datas = await readJson();
+    // 代入するタグの要素を取得
     const tableElm = document.getElementById('planlist');
     console.log(datas);
     // dataの時系列を並び替え
@@ -15,8 +18,10 @@ async function appendEvent(){
         a.date > b.date ? 1 : -1  
         );
     console.log(datas);
+    // テーブルの見出しを設定
     str.push(`<tr><th class="table_datetime">datetime</th><th>comment</th></tr>`)
     for (const data of datas){
+        // テーブルの要素を代入
         str.push(`
             <form>
                 <tr class="plan${data.date}d">
@@ -27,22 +32,31 @@ async function appendEvent(){
             </form>
             `)
         }
+    // 削除一覧をHTMLに送る
     tableElm.innerHTML = str.join("");
-    addevent(datas);
+    // 削除イベントを追加
+    delEvent(datas);
 }
 
-function addevent(datas){
+// 削除イベントを追加する関数
+function delEvent(datas){
+    // 削除イベントを追加
     for (const data of datas){
+        // 削除のトリガーになる要素を取得
         const Elm = document.getElementById(`btn${data.date}-${data.time}`);
         console.log(`btn${data.date}-${data.time}`);
+        // 削除ボタンが押されたら削除する
         Elm.addEventListener("click",()=>{
             console.log(`${data.date}-${data.time}`);
+            // 削除を行う
             postdata(data.date,data.time);
         });
     }
 }
 
+// 削除を行う関数
 function postdata(delDate,delTime){
+    // 削除を行う/delにデータを送付
     fetch('/del', {
             // postでサーバーに送る
             method: 'POST',
@@ -61,4 +75,5 @@ function postdata(delDate,delTime){
     window.location.reload(true);
 }
 
-appendEvent();
+// 削除一覧を返す
+delPlanList();
