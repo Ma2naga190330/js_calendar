@@ -1,7 +1,7 @@
-// 1月ごとのカレンダーを表示する
+// ひと月ごとのカレンダーを作成する
 function cale(now){
     // currentIndexから年と月の差を取得
-    let [curYear,curMon] = numToMonth();
+    let [curYear,curMon] = currentDifferences();
     // 月の最終日を取得
     let lastDate = new Date(now.getFullYear()+curYear,now.getMonth()+1+curMon,0);
     // 月の最初の日を取得
@@ -13,6 +13,7 @@ function cale(now){
     let count = 0;
     // 日にちを入力する
     for (let i = 0; i < lastDate.getDate(); i++){
+        // 表示する日付を定義
         let current = new Date(
             lastDate.getFullYear(),
             lastDate.getMonth(),
@@ -49,25 +50,14 @@ function cale(now){
     }
     return str;
 }
-// function dispCale(now){
-//     // 日付一覧を取得
-//     const str = cale(now);
-//     // index.htmlの要素を取得
-//     const monElm = document.getElementById('month');
-//     const Elm = document.querySelector('.cale');
-//     // カレンダー(日付一覧)を代入
-//     Elm.innerHTML=str.join("");
-//     // カレンダーの見出しの年月を代入
-//     monElm.innerHTML = (now.getFullYear())+"年"+(now.getMonth()+1).toString()+"月";
-//     // 現在の日付の文字を赤にする
-    
-//     const nowDate = document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
-// }
-function numToMonth(){
+
+// 現在の年度の差分と月の差分を返す
+function currentDifferences(){
     if (currentIndex === 0){
+        // 最初は差分0
         return [0,0];
     }else{
-        // 月の差分と月のあまりを返す
+        // currentIndexから年度と月の差分を算出
         return [Math.floor((now.getMonth()+currentIndex)/12),(now.getMonth()+currentIndex)%12-now.getMonth()];
     }
 }
@@ -75,8 +65,11 @@ function numToMonth(){
 
 
 // スクロールで使用するグローバル変数
+// エラー回避用にロードしたか判定用
 let isLoading = false;
-let currentIndex = -1;
+// カレンダーが何回追加されたかを保存
+let currentIndex = 0;
+// 現在の時刻データを取得
 const now = new Date();
 // スクロール
 async function scroller(){
@@ -86,24 +79,33 @@ async function scroller(){
     const loadingElm = document.getElementById('loading');
     if (loadingElm) loadingElm.style.display = 'block';
     try{
-        currentIndex++;
+        // カレンダー配列を取得
         const str = cale(now);
         // タイムラインを取得
         const timeline = document.getElementById('timeline');
         // 要素の作成
         const postElm = document.createElement('div');
+        // クラス名をポストにする
         postElm.className='post';
-        let [curYear,curMon] = numToMonth();
+        // 見出しの作成
+        // カレンダーの年、月を表示するために差分を算出
+        let [curYear,curMon] = currentDifferences();
+        // 見出しをhtml側に送る
         postElm.innerHTML=`<h3>${now.getFullYear()+curYear}年${now.getMonth()+curMon+1}月</h3><table border="1" class="cale">${str.join("")}</table>`;
+        // タイムラインを追加
         timeline.appendChild(postElm);
+        // 念のために24回表示されたら終了する
         if (currentIndex === 24){
             isLoading = false;
             if(loadingElm)loadingElm.style.display='none';
             return;
         }
+        // カレンダーの作成回数を増やす
+        currentIndex++;
     }catch(e){
         console.error(e);
     }finally{
+        // エラー回避用
         isLoading = false;
         if (loadingElm) loadingElm.style.display = 'none';
     }
@@ -117,7 +119,7 @@ function checkScroll(){
     // 画面下から100px以内だと次のデータをロード
     if (scrollHeight-scrollTop-windowHeight <900){
         scroller();
-        appendEvent();
+        addPlanEvent();
     }
 }
 
@@ -127,8 +129,11 @@ async function readJson(){
     return await dataResponse.json();
 }
 
-async function appendEvent(){
+// 予定の追加とイベントを追加する
+async function addPlanEvent(){
+    // 予定追加用の配列を初期化
     const str = [];
+    // データを読み込む
     const datas = await readJson();
     console.log(datas);
     // dataの時系列を並び替え
@@ -136,56 +141,75 @@ async function appendEvent(){
         a.date > b.date ? 1 : -1  
         );
     console.log(datas);
+    //　予定一覧を作成
     for (const data of datas){
+        // 背景色変更用のボタンを取得
         const Elm = document.getElementById(`${data.date}`)
         if (Elm != undefined){
+            // jsonデータのdateと比較用のnowDateを定義
             const nowDate = now.getFullYear().toString()+"-"+(now.getMonth()+1).toString().padStart(2,'0')+"-"+(now.getDate()).toString().padStart(2,'0')
+            // 追加予定の日付が今日の場合背景色は紫にそうじゃなければ青色にする
             if (data.date != nowDate){
+                // 今日ではない
                 Elm.style.backgroundColor="blue";
             }else{
+                // 今日の場合
                 Elm.style.backgroundColor="mediumpurple"
             }
+            // サイドバーに表示する予定の追加
             str.push(`
                 <p class="plan${data.date}">${data.date} - ${data.time} - ${data.plan}</p><br>
                 `)
-            await planEvent(data.date);
+            // サイドバーに表示する予定の背景色イベントの作成
+            planEvent(data.date);
         }
     }
+    // サイドバーに予定一覧を追加する
     const planElm = document.getElementById('planView');
     planElm.innerHTML = str.join("");
 }
 
-const planFlag=false;
+// 背景色が変更済みの要素を格納する変数
 let planid=null;
-// sidebarの背景色変更
+// 予定がある日付を押すとサイドバーの予定一覧の背景色を変更する
 function planEvent(id){
-    // console.log(id)
+    // 予定がある日付の要素(button)を取得
     const btnElm = document.getElementById(`btn${id}`);
+    // イベントを追加
     btnElm.addEventListener('click',()=>{
         console.log(planid);
+        // すでに背景色が変更されている場合、背景色をもとに戻す
         if (planid != null){
+            // すでに背景色が変更済みの要素を取得
             const prePlanElms = document.getElementsByClassName(`plan${planid}`);
+            // 背景色を白に戻す
             for (const planElm of prePlanElms){
                 planElm.style.backgroundColor="white";
             }
         }
         console.log("btn>event")
+        // 押された日付の予定の背景色を変更する
+        // 押された日付の予定の要素を取得
         const planElms = document.getElementsByClassName(`plan${id}`);
+        // 押された日付の予定の背景色を緑に変更する
         for (const planElm of planElms){
             planElm.style.backgroundColor="lawngreen";
         }
+        // 変更した予定のidをグローバル変数に格納
         planid = id;
     });
 }
 
+// 無限スクロール用のイベントを定義
 window.addEventListener('scroll',()=>{
     console.log('addevent scroll');
     checkScroll();
 });
 
-// dispCale(now);
+// 最初はスクロールしないので仮で呼び出す
 checkScroll();
-appendEvent();
+addPlanEvent();
+// カレンダーの今日の日付の背景色を赤に変更
 document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
 
 
