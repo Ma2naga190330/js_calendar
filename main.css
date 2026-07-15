@@ -1,4 +1,6 @@
 /* #>id .>class */
+
+/* 全体 */
 h1 {
     color: red;
 }
@@ -28,24 +30,8 @@ table, th, td {
     background-color:#f6f5f4;
 }
 
-.main_navi{
-    position: sticky;
-}
-
-.content {
-    flex: 1;
-}
-/* 
-.cp_navi01 {
-    width: 250px;
-    padding: 1em;
-    position: sticky;
-    top: 20px; 
-} */
-
 .cp_navi01 ul {
     width: 200px;
-    /*メニューの幅*/
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -77,17 +63,16 @@ table, th, td {
     color: #ffffff;
     background-color: #1b2538;
 }
+.main_navi{
+    position: sticky;
+}
 
-/*  カレンダー */
-/* .container {
-    display: flex;
-} */
-
-/* .content {
+.content {
     flex: 1;
-    padding: 1em;
-} */
+}
 
+
+/* カレンダー */
 .cale{
     width: 600px;
     height: 600px;
@@ -99,6 +84,7 @@ table, th, td {
     width: 100px;
 }
 
+/* サイドバーの予定一覧 */
 #planView p{
     background-color: white;
     padding: 5px;
@@ -107,6 +93,7 @@ table, th, td {
     width: 250px;
 }
 
+/* 削除一覧や更新一覧 */
 #planlist{
     background-color: white;
 }
