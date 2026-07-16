@@ -36,6 +36,7 @@ table, th, td {
     padding: 0;
     list-style-type: none;
     background-color: #eeeeee;
+    border: solid gray;
 }
 
 .cp_navi01 li a {
