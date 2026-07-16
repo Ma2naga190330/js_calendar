@@ -21,11 +21,21 @@
         <div class="content">
             <!-- 追加する予定の入力欄 -->
             <h1>スケジュール入力</h1>
-                日付:<input type="date" id="addDate" required><br>
-                時刻:<input type="time" id="addTime" required><br>
-                予定:<input type='text' id="addPlan" required><br><br>
-                <button id="addBtn">追加</button>
-            </div>
+            <table id="planlist">
+                <tr>
+                    <th>date</th>
+                    <td id="addDate"><input type="date" id="addDate" required></td>
+                </tr>
+                <tr>
+                    <th>time</th>
+                    <td id="addTime"><input type="time" id="addTime" required></td>
+                </tr>
+                    <th>plan</th>
+                    <td id="addPlan"><input type='text' id="addPlan" required></td>
+                </tr>
+            </table><br>
+            <button id="addBtn">追加</button>
+        </div>
         <!-- js -->
         <script src="add_plan.js"></script>
     </div>

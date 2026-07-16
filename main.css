@@ -108,3 +108,12 @@ table, th, td {
 .table_datetime{
     width: 200px;
 }
+
+/* inputタグ */
+input{
+    width: 97%;
+    border: 0;
+}
+input:focus {
+    outline: none;
+}
