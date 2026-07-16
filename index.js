@@ -206,12 +206,15 @@ window.addEventListener('scroll',()=>{
     checkScroll();
 });
 
-// 最初はスクロールしないので仮で呼び出す
-checkScroll();
-addPlanEvent();
-// カレンダーの今日の日付の背景色を赤に変更
-document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
-
+try{
+    // 最初はスクロールしないので仮で呼び出す
+    checkScroll();
+    addPlanEvent();
+    // カレンダーの今日の日付の背景色を赤に変更
+    document.getElementById(`${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,'0')}-${(now.getDate()).toString().padStart(2,'0')}`).style.backgroundColor="red";
+}catch (e){
+    console.error(e);
+}
 
 // 参考
 // >>Dateの使い方

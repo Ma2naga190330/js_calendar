@@ -8,34 +8,38 @@ async function readJson(){
 async function delPlanList(){
     // 削除一覧を登録する定数の定義
     const str = [];
-    // データを取得
-    const datas = await readJson();
-    // 代入するタグの要素を取得
-    const tableElm = document.getElementById('planlist');
-    console.log(datas);
-    // dataの時系列を並び替え
-    datas.sort((a, b) =>
-        a.date > b.date ? 1 : -1  
-        );
-    console.log(datas);
-    // テーブルの見出しを設定
-    str.push(`<tr><th class="table_datetime">datetime</th><th>comment</th></tr>`)
-    for (const data of datas){
-        // テーブルの要素を代入
-        str.push(`
-            <form>
-                <tr class="plan${data.date}d">
-                    <td class="table_datetime">${data.date} - ${data.time}</td>
-                    <td>${data.plan}</td>
-                    <td><button id="btn${data.date}-${data.time}">削除</button>
-                </tr>
-            </form>
-            `)
-        }
-    // 削除一覧をHTMLに送る
-    tableElm.innerHTML = str.join("");
-    // 削除イベントを追加
-    delEvent(datas);
+    try{
+        // データを取得
+        const datas = await readJson();
+        // 代入するタグの要素を取得
+        const tableElm = document.getElementById('planlist');
+        console.log(datas);
+        // dataの時系列を並び替え
+        datas.sort((a, b) =>
+            a.date > b.date ? 1 : -1  
+            );
+        console.log(datas);
+        // テーブルの見出しを設定
+        str.push(`<tr><th class="table_datetime">datetime</th><th>comment</th></tr>`)
+        for (const data of datas){
+            // テーブルの要素を代入
+            str.push(`
+                <form>
+                    <tr class="plan${data.date}d">
+                        <td class="table_datetime">${data.date} - ${data.time}</td>
+                        <td>${data.plan}</td>
+                        <td><button id="btn${data.date}-${data.time}">削除</button>
+                    </tr>
+                </form>
+                `)
+            }
+        // 削除一覧をHTMLに送る
+        tableElm.innerHTML = str.join("");
+        // 削除イベントを追加
+        delEvent(datas);
+    }catch (e){
+        console.error(e);
+    }
 }
 
 // 削除イベントを追加する関数

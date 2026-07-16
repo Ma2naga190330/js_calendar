@@ -34,11 +34,11 @@ function addPlan(){
                 })
             })
             alert("追加成功");
+            // 強制リロード
+            window.location.reload(true);
         }catch (e){
             // エラーメッセージを表示
             alert(e.message)
-            // 強制リロード
-            window.location.reload(true);
         }
     });
 }
@@ -50,20 +50,25 @@ async function readJson(){
 }
 // 日付と時間が重複しているかの判定
 async function chackDuplicate(date,time){
-    // 既存のデータを取得
-    const datas = await readJson();
-    // 重複フラグ
-    let flag = false
-    for (data of datas){
-        console.log(`input_plan.js>>${data.date}==${date},${data.time}==${time}`);
-        // 日付と時間が重複しているかチェック
-        if (data.date == date && data.time == time){
-            // 重複していた場合trueを返す
-            flag = true;
+    try{
+        // 既存のデータを取得
+        const datas = await readJson();
+        // 重複フラグ
+        let flag = false
+        for (data of datas){
+            console.log(`input_plan.js>>${data.date}==${date},${data.time}==${time}`);
+            // 日付と時間が重複しているかチェック
+            if (data.date == date && data.time == time){
+                // 重複していた場合trueを返す
+                flag = true;
+            }
         }
+        return flag
+    }catch (e){
+        console.error(e);
     }
-    return flag
 }
+
 
 // 予定追加関数
 addPlan();

@@ -18,41 +18,45 @@ async function readJson(){
 async function updateEventList(){
     // 更新一覧を入れる定数を定義
     const str = [];
-    // JSONデータの取得
-    const datas = await readJson();
-    // 更新一覧を入れる要素を取得
-    const tableElm = document.getElementById('planlist');
-    console.log(datas);
-    // dataの時系列を並び替え
-    datas.sort((a, b) =>
-        a.date > b.date ? 1 : -1  
-        );
-    console.log(datas);
-    // idの一覧を入れる配列
-    const ids = [];
-    // idを初期化
-    let id="";
-    // 更新一覧の見出しを入れる
-    str.push(`<tr><th>date</th><th>time</th><th>plan</th></tr>`)
-    for (const data of datas){
-        // idを作成しidsに格納する
-        id = "plan"+data.date+"-"+data.time;
-        ids.push(id);
-        // 更新一覧を追加する
-        str.push(`
-            <form>
-                <tr class="">
-                    <td><input type="date" value="${data.date}" class="${id}" readonly></td>
-                    <td><input type="time" value="${data.time}" class="${id}"></td>
-                    <td><input type="text" value="${data.plan}" class="${id}"></td>
-                </tr>
-            </form>
-            `)
-        }
-    // htmlに更新一覧を追加
-    tableElm.innerHTML = str.join("");
-    // 更新ボタンのイベントを作成
-    updateSubmit(ids);
+    try{
+        // JSONデータの取得
+        const datas = await readJson();
+        // 更新一覧を入れる要素を取得
+        const tableElm = document.getElementById('planlist');
+        console.log(datas);
+        // dataの時系列を並び替え
+        datas.sort((a, b) =>
+            a.date > b.date ? 1 : -1  
+            );
+        console.log(datas);
+        // idの一覧を入れる配列
+        const ids = [];
+        // idを初期化
+        let id="";
+        // 更新一覧の見出しを入れる
+        str.push(`<tr><th>date</th><th>time</th><th>plan</th></tr>`)
+        for (const data of datas){
+            // idを作成しidsに格納する
+            id = "plan"+data.date+"-"+data.time;
+            ids.push(id);
+            // 更新一覧を追加する
+            str.push(`
+                <form>
+                    <tr class="">
+                        <td><input type="date" value="${data.date}" class="${id}" readonly></td>
+                        <td><input type="time" value="${data.time}" class="${id}"></td>
+                        <td><input type="text" value="${data.plan}" class="${id}"></td>
+                    </tr>
+                </form>
+                `)
+            }
+        // htmlに更新一覧を追加
+        tableElm.innerHTML = str.join("");
+        // 更新ボタンのイベントを作成
+        updateSubmit(ids);
+    }catch (e){
+        console.error(e);
+    }
 }
 
 // 更新ボタンの関数
