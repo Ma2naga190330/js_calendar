@@ -104,6 +104,7 @@ table, th, td {
 /* 削除一覧や更新一覧 */
 #planlist{
     background-color: white;
+    width: 500px;
 }
 .table_datetime{
     width: 200px;

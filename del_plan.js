@@ -20,7 +20,7 @@ async function delPlanList(){
             );
         console.log(datas);
         // テーブルの見出しを設定
-        str.push(`<tr><th class="table_datetime">datetime</th><th>comment</th></tr>`)
+        str.push(`<tr><th class="table_datetime">datetime</th><th>plan</th></tr>`)
         for (const data of datas){
             // テーブルの要素を代入
             str.push(`
@@ -28,7 +28,7 @@ async function delPlanList(){
                     <tr class="plan${data.date}d">
                         <td class="table_datetime">${data.date} - ${data.time}</td>
                         <td>${data.plan}</td>
-                        <td><button id="btn${data.date}-${data.time}">削除</button>
+                        <td><button id="btn${data.date}-${data.time}" style="width:100%; background-color:red; color:white;">削除</button>
                     </tr>
                 </form>
                 `)
